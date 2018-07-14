@@ -4,6 +4,7 @@
   "description": "Holds dependencies needed for Twit Package and Twitter API through Node JS",
   "main": "bot.js",
   "scripts": {
+    "start": "node bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
