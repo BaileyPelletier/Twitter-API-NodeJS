@@ -1,0 +1,27 @@
+{
+  "name": "pkg-for-twit",
+  "version": "1.0.0",
+  "description": "Holds dependencies needed for Twit Package and Twitter API through Node JS",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaileyPelletier/Twitter-API-NodeJS.git"
+  },
+  "keywords": [
+    "twitter",
+    "api",
+    "experimenting"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BaileyPelletier/Twitter-API-NodeJS/issues"
+  },
+  "homepage": "https://github.com/BaileyPelletier/Twitter-API-NodeJS#readme",
+  "dependencies": {
+    "twit": "^2.2.11"
+  }
+}
