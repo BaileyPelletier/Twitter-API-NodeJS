@@ -24,6 +24,7 @@ var T = new Twit(config)
 //   // console.log(data);
 // };
 
+// Date String
 function todayStr () {
   var today = new Date();
   var day = today.getDate();
@@ -73,23 +74,36 @@ function todayStr () {
   return month + " " + day + ", " + year;
 }
 console.log(todayStr());
+
+
 //Setting up a user stream
 var stream = T.stream('user');
 
-//Anytime someone follows me
-stream.on('follow', followed)
+//Anytime someone tweets bot
+stream.on('tweet', reply)
 
 function followed(event) {
   console.log("Follow Event!");
   var name = event.source.name;
   var screenName = event.source.screen_name;
   tweetIt("@" + screenName + ", you are so rad for following me on " + todayStr() + "! Thanks!");
+} //Says thanks to someone who follows bot
+
+function reply(eventMsg) {
+  // var fs = require('fs');
+  // var json = JSON.stringify(eventMsg,null,2);
+  // fs.writeFile("tweet.json", json);
+
+  var replyto = eventMsg.in_reply_to_screen_name;
+  var text = eventMsg.text;
+  var from = eventMsg.user.screen_name;
+
+  if (replyto === "Mr_B110") {
+    var newTweet = "@" + from + " thank you kind human for tweeting me! #SkynetReplies"
+  }
+
+  tweetIt(newTweet);
 }
-
-
-
-
-
 // POSTS TWEETS
 // tweetIt();
 // setInterval(tweetIt, 1000*20);    //Sets an interval in which tweets (tweetIt) are executed
@@ -103,7 +117,7 @@ function tweetIt(txt) {
     }
   } else {
     var tweet =  {
-      status: 'Here is a random number for you: ' + r + " You're welcome. #RandomNumberGeneration"
+      status: 'Here is a random number for you: ' + r + " You're welcome. #SkynetNumbers"
     }
   }
 
