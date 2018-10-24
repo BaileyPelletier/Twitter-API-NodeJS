@@ -24,12 +24,9 @@ var T = new Twit(config)
 //   // console.log(data);
 // };
 
-//Adjective Array
-var adj = ["adaptable",	"adventurous",	"affectionate",	"ambitious",	"amiable",	"compassionate",	"considerate",	"courageous", "courteous",	"diligent",	"empathetic",	"exuberant",
-  "frank",	"generous",	"gregarious",	"impartial","intuitive","inventive", "passionate",	"persistent",	"philosophical","practical","reliable","resourceful","sensible","sincere","sympathetic","unassuming","witty"];
 // Date String
-var today = new Date();
 function todayStr () {
+  var today = new Date();
   var day = today.getDate();
   var year = today.getFullYear();
   var monthNum = today.getMonth();
@@ -82,17 +79,14 @@ console.log(todayStr());
 //Setting up a user stream
 var stream = T.stream('user');
 
-//Anytime someone follows/tweets bot
-stream.on('follow', followed)
+//Anytime someone tweets bot
 stream.on('tweet', reply)
 
-function followed(eventMsg) {
+function followed(event) {
   console.log("Follow Event!");
-  var name = eventMsg.source.name;
-  var screenName = eventMsg.source.screen_name;
-  var index = Math.floor(Math.random()*adj.length);
-  console.log(index + "  " + adj[index]);
-  tweetIt("@" + screenName + ", you are so " + adj[index] + " for following me on " + todayStr() + "! Thanks!");
+  var name = event.source.name;
+  var screenName = event.source.screen_name;
+  tweetIt("@" + screenName + ", you are so rad for following me on " + todayStr() + "! Thanks!");
 } //Says thanks to someone who follows bot
 
 function reply(eventMsg) {
@@ -105,7 +99,7 @@ function reply(eventMsg) {
   var from = eventMsg.user.screen_name;
 
   if (replyto === "Mr_B110") {
-    var newTweet = "@" + from + " thank you kind human for tweeting me! Your timestap is " + today + "     #SkynetReplies"
+    var newTweet = "@" + from + " thank you kind human for tweeting me! #SkynetReplies"
   }
 
   tweetIt(newTweet);
@@ -121,11 +115,18 @@ function tweetIt(txt) {
     var tweet = {
       status: txt
     }
+  } else {
+    var tweet =  {
+      status: 'Here is a random number for you: ' + r + " You're welcome. #SkynetNumbers"
+    }
   }
 
   T.post('statuses/update', tweet , tweeted);
 
   function tweeted(err, data, response) {
-    console.log("I tweeted: " + txt);
+    if (err) {
+      console.log("Something went wrong!")
+    }
+    console.log("It worked!")
   }
 }
